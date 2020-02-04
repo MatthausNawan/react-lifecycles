@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
@@ -15,12 +15,31 @@ const StyledButton = styled.button`
   }
 `;
 const cockpit = props => {
+  useEffect(() => {
+    console.log("[ Cockipt.js] useEffect ");
+    setTimeout(() => {
+      alert("Save data to clound!");
+    }, 1000);
+
+    return () => {
+      console.log("[Cockpit.js ] cleanup work in useEffect");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("[Cockpit.js] 2nd useEffect");
+
+    return () => {
+      console.log("[Cockipt.js] cleanup work in 2nd useEffect");
+    };
+  });
+
   let classes = [];
 
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     classes.push("red");
   }
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     classes.push("bold");
   }
 
@@ -38,4 +57,4 @@ const cockpit = props => {
   );
 };
 
-export default cockpit;
+export default React.memo(cockpit);
